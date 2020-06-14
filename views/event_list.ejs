@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Home <span class="sr-only">(current)</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+        </div>
+
+        <p class="navbar-brand">Current User: <%= user.username %> </p>
+        <a class="btn btn-info" href="/logout">Logout</a>  
+    </nav>
+
+
+    <div class="" style="padding: 20px;">
+        <h2 class="">My Events list</h2>
+        <br />
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Location</th>
+                    <th>duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < events.length; i++) { %>
+                <tr>
+                    <td>
+                        <a href="/events/<%= events[i]._id%>">
+                            <div style="height:100%;width:100%">
+                                <%= events[i].topic %>
+                            </div>
+                        </a>
+
+                    </td>
+                    <td><%= events[i].description %></td>
+                    <td><%= events[i].startDate %></td>
+                    <td><%= events[i].endDate %></td>
+                    <td><%= events[i].status %></td>
+                    <td><%= events[i].location %></td>
+                    <td><%= events[i].duration %></td>
+                </tr>
+                <% } %>
+
+            </tbody>
+
+        </table>
+    </div>
+
+</body>
+
+</html>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    text: 'Add event',
+                    action: function (e, dt, node, config) {
+                        window.location.href = '/create_event'
+                    }
+                }
+            ]
+        });
+    });
+</script>
